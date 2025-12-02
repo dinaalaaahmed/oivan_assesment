@@ -1,0 +1,20 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  username: rails_user
+  password: password123
+  host: localhost
+
+development:
+  <<: *default
+  database: oivan_assesment_project_development
+
+test:
+  <<: *default
+  database: oivan_assesment_project_test
+
+production:
+  <<: *default
+  database: oivan_assesment_project_production
+  username: rails_user
+  password: <%= ENV['DATABASE_PASSWORD'] %>
