@@ -1,4 +1,5 @@
 require 'digest'
+require 'uri'
 
 class UrlEncoderService
   class << self
@@ -19,7 +20,9 @@ class UrlEncoderService
 
 
     def decode(short_url)
-        Url.where(url_hash: short_url).limit(1).pluck(:original_url).first
+        uri = URI(short_url)
+        hash = uri.path.split("/").reject(&:empty?).last
+        Url.where(url_hash: hash).limit(1).pluck(:original_url).first
     end
 
     private

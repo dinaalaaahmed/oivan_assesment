@@ -2,12 +2,12 @@ class UrlsController < ApplicationController
   def encode
     original_url = encode_params[:original_url]
     encoded = UrlEncoderService.encode(original_url)
-
-    render json: { original_url: original_url, encoded_url: encoded }
+    short_url = "#{request.base_url}/#{encoded}"
+    render json: { original_url: original_url, short_url: short_url }
   end
 
   def decode
-    decoded = UrlEncoderService.decode(decode_params[:url_hash])
+    decoded = UrlEncoderService.decode(decode_params[:short_url])
 
     if decoded
       render json: { original_url: decoded }
@@ -24,6 +24,6 @@ class UrlsController < ApplicationController
 
 
   def decode_params
-    params.require(:url_hash)
+    params.require(:url).permit(:short_url)
   end
 end
