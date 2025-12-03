@@ -1,8 +1,9 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8
-  username: rails_user
-  password: password123
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: postgres
+  password: password
   host: localhost
 
 development:
@@ -10,15 +11,13 @@ development:
   database: oivan_assesment_project_development
 
 test:
-  adapter: mysql2
-  encoding: utf8
+  adapter: postgresql
+  encoding: unicode
   database: oivan_assesment_project_test
-  username: rails_user
-  password: password123
+  username: postgres
+  password: password
   host: localhost
 
 production:
   <<: *default
-  database: oivan_assesment_project_production
-  username: rails_user
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
