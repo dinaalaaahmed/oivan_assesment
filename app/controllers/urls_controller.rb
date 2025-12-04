@@ -1,4 +1,6 @@
 class UrlsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:encode, :decode]
+
   def encode
     original_url = encode_params[:original_url]
     encoded = UrlEncoderService.encode(original_url)

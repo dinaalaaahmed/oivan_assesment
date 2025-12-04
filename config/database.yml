@@ -4,19 +4,15 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: postgres
   password: password
-  host: localhost
+  host: db  # Changed from localhost
 
 development:
   <<: *default
   database: oivan_assesment_project_development
 
 test:
-  adapter: postgresql
-  encoding: unicode
+  <<: *default  # Now it inherits host: db from default
   database: oivan_assesment_project_test
-  username: postgres
-  password: password
-  host: localhost
 
 production:
   <<: *default
