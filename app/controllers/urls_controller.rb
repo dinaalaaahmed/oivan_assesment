@@ -1,5 +1,5 @@
 class UrlsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:encode, :decode]
+  skip_before_action :verify_authenticity_token, only: [ :encode, :decode ]
 
   def encode
     original_url = encode_params[:original_url]
@@ -14,7 +14,7 @@ class UrlsController < ApplicationController
     if decoded
       render json: { original_url: decoded }
     else
-      render json: { error: 'Invalid URL' }, status: :unprocessable_entity
+      render json: { error: "Invalid URL" }, status: :unprocessable_entity
     end
   end
 

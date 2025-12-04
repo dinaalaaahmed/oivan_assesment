@@ -1,9 +1,8 @@
-require 'digest'
-require 'uri'
+require "digest"
+require "uri"
 
 class UrlEncoderService
   class << self
-
     def encode(original_url)
         existing_hash = Url.where(original_url: original_url).limit(1).pluck(:url_hash).first
         return existing_hash if existing_hash

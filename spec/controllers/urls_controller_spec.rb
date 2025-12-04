@@ -9,8 +9,8 @@ RSpec.describe "Urls", type: :request do
       allow_any_instance_of(ActionDispatch::Request)
         .to receive(:base_url).and_return("https://google.com")
     end
-    
-    
+
+
     it "creates a new short URL" do
       post encode_path, params: { url: { original_url: original_url } }
 
@@ -21,9 +21,9 @@ RSpec.describe "Urls", type: :request do
 
     it "returns existing hash if URL already exists" do
       existing_hash = UrlEncoderService.encode(original_url)
-      
+
       post encode_path, params: { url: { original_url: original_url } }
-      
+
       json = JSON.parse(response.body)
       expect(json["short_url"]).to eq("https://google.com/#{existing_hash}")
     end
@@ -43,9 +43,9 @@ RSpec.describe "Urls", type: :request do
 
     it "returns existing hash if URL already exists" do
       existing_hash = UrlEncoderService.decode(short_url)
-      
+
       post decode_path, params: { url: { short_url: short_url } }
-      
+
       json = JSON.parse(response.body)
       expect(json["original_url"]).to eq(existing_hash)
     end

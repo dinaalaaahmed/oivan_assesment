@@ -10,5 +10,4 @@ class Base62
     end
     str
   end
-
 end
