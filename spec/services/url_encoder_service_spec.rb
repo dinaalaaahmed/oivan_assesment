@@ -23,6 +23,13 @@ RSpec.describe UrlEncoderService do
       expect(record).to_not eq(nil)
       expect(short_url_1).to eq(short_url_2)
     end
+
+    it "throws an error for invalid url" do
+
+      expect {
+        UrlEncoderService.encode("google.com")
+      }.to raise_error(ActiveRecord::RecordInvalid, /Original url is not a valid URL/)
+    end
   end
 
   describe "#decode" do
@@ -40,13 +47,6 @@ RSpec.describe UrlEncoderService do
 
       expect(decoded_1).to eq("https://google.com")
       expect(decoded_2).to eq("https://google.com")
-    end
-
-    it "throws an error for invalid url" do
-
-      expect {
-        UrlEncoderService.encode("google.com")
-      }.to raise_error(ActiveRecord::RecordInvalid, /Original url is not a valid URL/)
     end
   end
 end
