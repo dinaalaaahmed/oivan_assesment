@@ -30,7 +30,7 @@ class UrlsController < ApplicationController
 
   def validate_url
     unless UrlHelper.valid_url?(params[:url])
-      return render json: { error: "url attribute is not a Valid URL" }, status: :unprocessable_entity
+      render json: { error: "url attribute is not a Valid URL" }, status: :unprocessable_entity
     end
   end
 end

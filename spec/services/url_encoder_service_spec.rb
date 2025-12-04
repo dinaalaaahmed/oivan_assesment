@@ -25,7 +25,6 @@ RSpec.describe UrlEncoderService do
     end
 
     it "throws an error for invalid url" do
-
       expect {
         UrlEncoderService.encode("google.com")
       }.to raise_error(ActiveRecord::RecordInvalid, /Original url is not a valid URL/)
