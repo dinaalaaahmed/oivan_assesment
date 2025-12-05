@@ -45,9 +45,9 @@ RSpec.describe "Urls", type: :request do
     it "return error if not existing url" do
       post decode_path, params: { url: short_url }
 
-      expect(response).to have_http_status(:unprocessable_content)
+      expect(response).to have_http_status(:not_found)
       json = JSON.parse(response.body)
-      expect(json["original_url"]).to be_nil
+      expect(json["error"]).to  eq("url attribute is not encoded before")
     end
 
     it "returns existing hash if URL already exists" do

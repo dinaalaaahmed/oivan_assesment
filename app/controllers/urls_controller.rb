@@ -18,7 +18,7 @@ class UrlsController < ApplicationController
     if original_url
       render json: { original_url: original_url, short_url: short_url }
     else
-      render json: { error: "Invalid URL" }, status: :unprocessable_content
+      render json: { error: "url attribute is not encoded before" }, status: :not_found
     end
   end
 
