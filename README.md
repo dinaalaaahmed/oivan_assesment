@@ -18,6 +18,7 @@ Port: 8000
 - I wanted the hash key to be index-friendly to speed up lookups in the table. Therefore, I applied two hashing steps: first SHA1, followed by Base62 encoding, which is optimized for indexing.
 - Using indecies will have a certain limit, so for future enhancements we can rely on elastic-search, but indecies is enough for now.
 - I used transaction, and a lock to prevent race conditions from occur when trying to encode the same urls from two different transactions
+- I validated the url on the level of controller and db models
 
 ## API Request
 - /encode endpoint
