@@ -49,10 +49,6 @@ RUN find . -type f -name "*.rb" -exec dos2unix {} \; && \
 # Precompile assets only in production
 RUN if [ "$RAILS_ENV" = "production" ]; then \
       SECRET_KEY_BASE=dummy bundle exec rails assets:precompile; \
-    fi
-
-# Create non-root user for security (production only)
-RUN if [ "$RAILS_ENV" = "production" ]; then \
       groupadd -r rails && useradd -r -g rails rails && \
       chown -R rails:rails /app; \
     fi
