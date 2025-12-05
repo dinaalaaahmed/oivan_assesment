@@ -47,7 +47,7 @@ RSpec.describe "Urls", type: :request do
 
       expect(response).to have_http_status(:not_found)
       json = JSON.parse(response.body)
-      expect(json["error"]).to  eq("url attribute is not encoded before")
+      expect(json["error"]).to eq("url attribute is not encoded before")
     end
 
     it "returns existing hash if URL already exists" do
