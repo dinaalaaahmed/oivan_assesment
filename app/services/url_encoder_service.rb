@@ -4,16 +4,22 @@ require "uri"
 class UrlEncoderService
   class << self
     def encode(original_url)
-        existing_hash = Url.where(original_url: original_url).limit(1).pluck(:url_hash).first
-        return existing_hash if existing_hash
+        Url.transaction do
+          existing_url = Url.lock.find_by(original_url: original_url)
+          return existing_url.url_hash if existing_url
 
-        loop do
-            hash = generate_hash(original_url)
-            conflict = Url.where(url_hash: hash).limit(1).pluck(:url_hash).first
-            next if conflict
+          loop do
+              hash = generate_hash(original_url)
+              conflict = Url.where(url_hash: hash).limit(1).pluck(:url_hash).first
+              next if conflict
 
-            url = Url.create!(original_url: original_url, url_hash: hash)
-            return url.url_hash
+              begin
+                url = Url.create!(original_url: original_url, url_hash: hash)
+                return url.url_hash
+              rescue ActiveRecord::RecordNotUnique
+                next
+              end
+          end
         end
     end
 
